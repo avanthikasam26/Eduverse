@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Opportunities - EduVerse</title>
+    <link rel="stylesheet" href="jobs.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">EduVerse</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="skills.html" class="protected">Skill Development</a></li>
+            <li><a href="career.html" class="protected">Career Guidance</a></li>
+            <li><a href="jobs.html" class="protected">Job Opportunities</a></li>
+            <li><a href="#" id="authLink">Login</a></li>
+        </ul>
+    </nav>
+
+    
+    <section class="hero">
+        <h1>Explore Job Opportunities</h1>
+        <p>Find the best job opportunities based on your skills and expertise.</p>
+        <a href="#job-listings" class="btn">View Jobs</a>
+    </section>
+
+    <!-- Job Listings -->
+    <section class="jobs-container" id="job-listings">
+        <h2>Latest Job Openings</h2>
+        <div class="jobs-grid">
+            <div class="job-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.55.58 AM.jpeg" alt="Software Engineer" width="200" height="125">
+                <h3><a href="https://www.naukri.com/software-engineer-jobs" target="_blank">Software Engineer</a></h3>
+                <p>Join top tech companies as a full-stack or backend developer.</p>
+            </div>
+            <div class="job-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 12.01.19 PM.jpeg" alt="Data Scientist" width="200" height="125">
+                <h3><a href="https://www.naukri.com/data-science-jobs" target="_blank">Data Scientist</a></h3>
+                <p>Analyze business data and drive decision-making strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Login Protection -->
+    <script>
+        function checkLogin() {
+            let isLoggedIn = localStorage.getItem("loggedIn");
+            let authLink = document.getElementById("authLink");
+
+            if (isLoggedIn === "true") {
+                authLink.innerText = "Logout";
+                authLink.href = "#"; 
+                authLink.onclick = logout;
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "auto";
+                    link.style.opacity = "1"; // Make links active
+                });
+            } else {
+                authLink.innerText = "Login";
+                authLink.href = "login.html";
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "none";
+                    link.style.opacity = "0.5"; // Make links look disabled
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            alert("Logged out successfully!");
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLogin);
+    </script>
+
+</body>
+</html>

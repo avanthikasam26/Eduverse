@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Connect with Us - EduVerse</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">EduVerse</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="skills.html" class="protected">Skill Development</a></li>
+            <li><a href="career.html" class="protected">Career Guidance</a></li>
+            <li><a href="jobs.html" class="protected">Job Opportunities</a></li>
+            <li><a href="#" id="authLink">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Login Form -->
+    <section class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="login-form" action="https://script.google.com/macros/s/AKfycbzq-E9yR7IRoyOqE7zaTwJGvxqg6Ft8ZbZ2ZgM0zgGAQm7gs_1B3V84zRx1CRDmsXGn/exec" method="post" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="Phone no" placeholder="Enter your phone number" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <p id="response-message" style="display:none; color:green; margin-top:10px;">You have successfully logged in to EduVerse!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="contact-info">
+            <p><strong>Email:</strong> eduverse@gmail.com</p>
+            <p><strong>Phone:</strong> +1 234 567 890</p>
+            <p><strong>Address:</strong> Kr.nagar, NEC, Kovilpatti</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Login -->
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            // Submit form to Google Apps Script
+            let form = document.getElementById("login-form");
+            let formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                document.getElementById("response-message").style.display = "block";
+                localStorage.setItem("loggedIn", "true"); // Save login status
+                document.getElementById("authLink").innerText = "Logout";
+                document.getElementById("authLink").href = "#";
+                document.getElementById("authLink").onclick = logout;
+                setTimeout(() => window.location.href = "index.html", 2000);
+            }).catch(error => alert("Login failed, please try again."));
+        }
+
+        function checkLogin() {
+            let isLoggedIn = localStorage.getItem("loggedIn");
+            let authLink = document.getElementById("authLink");
+
+            if (isLoggedIn === "true") {
+                authLink.innerText = "Logout";
+                authLink.href = "#";
+                authLink.onclick = logout;
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "auto";
+                    link.style.opacity = "1"; 
+                });
+            } else {
+                authLink.innerText = "Login";
+                authLink.href = "login.html";
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "none";
+                    link.style.opacity = "0.5";
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            alert("Logged out successfully!");
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLogin);
+    </script>
+
+</body>
+</html>

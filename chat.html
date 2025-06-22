@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVerse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EduVerse</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="skills.html">Skill Development</a></li>
+                <li><a href="career.html">Career Guidance</a></li>
+                <li><a href="jobs.html">Jobs & Internships</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Empowering Students with Skills & Careers</h1>
+        <p>Your journey to success starts here!</p>
+        <a href="#skills" class="btn">Get Started</a>
+    </section>
+
+    
+    <div class="chatbot-container">
+        <div class="chat-icon" id="chatIcon">💬</div>
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-header">EduVerse Chatbot</div>
+            <div class="chatbox-messages" id="chatMessages"></div>
+            <div class="chatbox-input">
+                <input type="text" id="userInput" placeholder="Ask me anything about EduVerse...">
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatIcon = document.getElementById('chatIcon');
+        const chatbox = document.getElementById('chatbox');
+        const sendButton = document.getElementById('sendButton');
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatIcon.addEventListener('click', () => {
+            chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
+            addMessage("Hi, how can I help you?", 'bot');
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const userMessage = userInput.value.trim();
+            if (userMessage) {
+                addMessage(userMessage, 'user');
+                userInput.value = '';
+                setTimeout(() => generateBotReply(userMessage), 1000);
+            }
+        }
+
+        function addMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messageElement.className = sender === 'user' ? 'user-message' : 'bot-message';
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function generateBotReply(userMessage) {
+            let botReply;
+            userMessage = userMessage.toLowerCase();
+
+            if (userMessage.includes('skill') || userMessage.includes('course')) {
+                botReply = "To develop new skills, explore the Skill Development page on our website.";
+            } else if (userMessage.includes('career')) {
+                botReply = "For career advice, check out the Career Guidance section on our website.";
+            } else if (userMessage.includes('job') || userMessage.includes('internship')) {
+                botReply = "You can find the latest job and internship opportunities on the Jobs & Internships page.";
+            } else if (userMessage.includes('personal growth') || userMessage.includes('self improvement')) {
+                botReply = "For personal growth and productivity tips, explore the Personal Growth page.";
+            } else if (userMessage.includes('community') || userMessage.includes('mentor')) {
+                botReply = "Join our community and connect with mentors by visiting the Community & Mentorship page.";
+            } else if (userMessage.includes('hello') || userMessage.includes('hi')) {
+                botReply = "Hello! Welcome to EduVerse. How can I assist you today?";
+            } else {
+                botReply = "I'm here to help! You can ask about skills, careers, jobs, or personal growth.";
+            }
+            addMessage(botReply, 'bot');
+        }
+    </script>
+
+    <style>
+        
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .chat-icon {
+            background-color: #F39C12;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbox {
+            display: none;
+            width: 320px;
+            height: 450px;
+            border: 2px solid #2E86C1;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbox-header {
+            background-color: #2E86C1;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+        }
+
+        .chatbox-messages {
+            height: 330px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #F8F9F9;
+        }
+
+        .chatbox-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .chatbox-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .chatbox-input button {
+            background-color: #F39C12;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 16px;
+        }
+
+        .chatbox-input button:hover {
+            background-color: #D68910;
+        }
+
+        .user-message {
+            background-color: #2E86C1;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            align-self: flex-end;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background-color: #F39C12;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 80%;
+        }
+    </style>
+</body>
+</html>

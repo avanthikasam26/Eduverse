@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVerse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EduVerse</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="skills.html" class="protected">Skill Development</a></li>
+                <li><a href="career.html" class="protected">Career Guidance</a></li>
+                <li><a href="jobs.html" class="protected">Jobs & Internships</a></li>
+                <li><a href="#" id="authLink">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Empowering Students with Skills & Careers</h1>
+        <p>Your journey to success starts here!</p>
+        <a href="#" id="getStartedBtn" class="btn">Get Started</a>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let isLoggedIn = localStorage.getItem("loggedIn");
+            let authLink = document.getElementById("authLink");
+
+            // Update Login/Logout Button
+            if (isLoggedIn === "true") {
+                authLink.innerText = "Logout";
+                authLink.href = "#";
+                authLink.onclick = function () {
+                    localStorage.removeItem("loggedIn");
+                    alert("Logged out successfully!");
+                    window.location.reload();
+                };
+            } else {
+                authLink.innerText = "Login";
+                authLink.href = "login.html";
+            }
+
+            // Disable Protected Links if Not Logged In
+            document.querySelectorAll(".protected").forEach(link => {
+                if (isLoggedIn !== "true") {
+                    link.style.pointerEvents = "none";
+                    link.style.opacity = "0.5";
+                }
+            });
+
+            // "Get Started" Button Behavior
+            document.getElementById("getStartedBtn").addEventListener("click", function () {
+                if (isLoggedIn === "true") {
+                    window.location.href = "dashboard.html"; // Redirect to Dashboard
+                } else {
+                    alert("Please log in first!");
+                    window.location.href = "login.html"; // Redirect to Login
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+<!-- Chatbot Container -->
+
+<div class="chatbot-container">
+
+    <div class="chat-icon" id="chatIcon">💬</div>
+
+    <div class="chatbox" id="chatbox">
+
+        <div class="chatbox-header">EduVerse Chatbot</div>
+
+        <div class="chatbox-messages" id="chatMessages"></div>
+
+        <div class="chatbox-input">
+
+            <input type="text" id="userInput" placeholder="Ask me anything about EduVerse...">
+
+            <button id="sendButton">Send</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    const chatIcon = document.getElementById('chatIcon');
+
+    const chatbox = document.getElementById('chatbox');
+
+    const sendButton = document.getElementById('sendButton');
+
+    const userInput = document.getElementById('userInput');
+
+    const chatMessages = document.getElementById('chatMessages');
+
+
+
+    chatIcon.addEventListener('click', () => {
+
+        chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
+
+        addMessage("Hi, how can I help you?", 'bot');
+
+    });
+
+
+
+    sendButton.addEventListener('click', sendMessage);
+
+    userInput.addEventListener('keypress', (e) => {
+
+        if (e.key === 'Enter') sendMessage();
+
+    });
+
+
+
+    function sendMessage() {
+
+        const userMessage = userInput.value.trim();
+
+        if (userMessage) {
+
+            addMessage(userMessage, 'user');
+
+            userInput.value = '';
+
+            setTimeout(() => generateBotReply(userMessage), 1000);
+
+        }
+
+    }
+
+
+
+    function addMessage(message, sender) {
+
+        const messageElement = document.createElement('div');
+
+        messageElement.textContent = message;
+
+        messageElement.className = sender === 'user' ? 'user-message' : 'bot-message';
+
+        chatMessages.appendChild(messageElement);
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    }
+
+
+
+    function generateBotReply(userMessage) {
+
+        let botReply;
+
+        userMessage = userMessage.toLowerCase();
+
+
+
+        if (userMessage.includes('skill') || userMessage.includes('course')) {
+
+            botReply = "To develop new skills, explore the Skill Development page on our website.";
+
+        } 
+        else if (userMessage.includes('login')) {
+
+            botReply = "For login click get started.";
+
+        }
+        else if (userMessage.includes('logout')) {
+
+            botReply = "click logout in the navigation bar.";
+
+        }else if (userMessage.includes('java')) {
+
+            botReply = "Go into skills development and choose programming and you will get java.";
+
+        }
+        else if (userMessage.includes('python')) {
+
+            botReply = "Go into skills development and choose programming and you will get python.";
+
+        }
+        else if (userMessage.includes('css')) {
+
+            botReply = "Go into skills development and choose web devlopment and you will get html/css.";
+
+        }
+        else if (userMessage.includes('html')) {
+
+            botReply = "Go into skills development and choose web devlopment and you will get html/css.";
+
+        }
+        else if (userMessage.includes('javascript') || userMessage.includes('js')) {
+
+            botReply = "Go into skills development and choose web devlopment and you will get javascript.";
+
+        }
+        else if (userMessage.includes('machine learning')|| userMessage.includes('ml')) {
+
+            botReply = "Go into skills development and choose data science and you will get machine learning.";
+
+        }
+        else if (userMessage.includes('data science')|| userMessage.includes('ds')) {
+
+            botReply = "Go into skills development and choose data science and you will get data science.";
+
+        }
+        else if (userMessage.includes('data scientist')|| userMessage.includes('software engineer')|| userMessage.includes('ai engineer')) {
+
+            botReply = "Go into career guidance there you find your required jobs.";
+
+        }
+
+        else if (userMessage.includes('career')) {
+
+            botReply = "For career advice, check out the Career Guidance section on our website.";
+
+        } else if (userMessage.includes('job') || userMessage.includes('internship')) {
+
+            botReply = "You can find the latest job and internship opportunities on the Jobs & Internships page.";
+
+        } else if (userMessage.includes('personal growth') || userMessage.includes('self improvement')) {
+
+            botReply = "For personal growth and productivity tips, explore the Personal Growth page.";
+
+        } else if (userMessage.includes('community') || userMessage.includes('mentor')) {
+
+            botReply = "Join our community and connect with mentors by visiting the Community & Mentorship page.";
+
+        } else if (userMessage.includes('hello') || userMessage.includes('hi')) {
+
+            botReply = "Hello! Welcome to EduVerse. How can I assist you today?";
+
+        } else {
+
+            botReply = "I'm here to help! You can ask about skills, careers, jobs, or personal growth.";
+
+        }
+
+        addMessage(botReply, 'bot');
+
+    }
+
+</script>
+
+
+
+<style>
+
+    @keyframes float {
+
+0%, 100% { transform: translate(0); }
+
+50% { transform: translate(-10px); }
+
+}
+
+
+
+.chatbot-container {
+
+position: fixed;
+
+bottom: 20px;
+
+right: 20px;
+
+text-align: center;
+
+}
+
+
+
+.chatbot-label {
+
+font-size: 14px;
+
+font-weight: bold;
+
+color: #2E86C1;
+
+margin-bottom: 5px;
+
+}
+
+
+
+.chat-icon {
+
+background-color: #FF6B6B;
+
+width: 80px;
+
+height: 80px;
+
+border-radius: 50%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+color: white;
+
+font-size: 40px;
+
+cursor: pointer;
+
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+animation: float 2s ease-in-out infinite;
+
+}
+
+
+
+.chatbox {
+
+display: none;
+
+width: 400px;
+
+height: 500px;
+
+border: 2px solid #2E86C1;
+
+border-radius: 10px;
+
+background-color: white;
+
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+
+
+.chatbox-header {
+
+background-color: #2E86C1;
+
+color: white;
+
+padding: 15px;
+
+text-align: center;
+
+border-radius: 10px 10px 0 0;
+
+font-size: 18px;
+
+font-weight: bold;
+
+}
+
+
+
+.chatbox-messages {
+
+height: 370px;
+
+overflow-y: auto;
+
+padding: 15px;
+
+background-color: #F8F9F9;
+
+}
+
+
+
+.chatbox-input {
+
+display: flex;
+
+padding: 10px;
+
+background-color: white;
+
+border-top: 1px solid #ccc;
+
+}
+
+
+
+.chatbox-input input {
+
+flex: 1;
+
+padding: 12px;
+
+border: 1px solid #ccc;
+
+border-radius: 5px;
+
+font-size: 16px;
+
+}
+
+
+
+.chatbox-input button {
+
+background-color: #FF6B6B;
+
+color: white;
+
+border: none;
+
+padding: 12px 18px;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+font-size: 16px;
+
+}
+
+
+
+    /* Chatbot Styles */
+
+    .chatbot-container {
+
+        position: fixed;
+
+        bottom: 20px;
+
+        right: 20px;
+
+    }
+
+
+
+    .chat-icon {
+
+        background-color: #36092d;
+
+        width: 60px;
+
+        height: 60px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        color: white;
+
+        font-size: 30px;
+
+        cursor: pointer;
+
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    }
+
+
+
+    .chatbox {
+
+        display: none;
+
+        width: 320px;
+
+        height: 450px;
+
+        border: 2px solid #d480d4;
+
+        border-radius: 10px;
+
+        background-color: white;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    }
+
+
+
+    .chatbox-header {
+
+        background-color: #36092d;
+
+        color: white;
+
+        padding: 10px;
+
+        text-align: center;
+
+        border-radius: 10px 10px 0 0;
+
+        font-weight: bold;
+
+    }
+
+
+
+    .chatbox-messages {
+
+        height: 330px;
+
+        overflow-y: auto;
+
+        padding: 10px;
+
+        background-color: #F8F9F9;
+
+    }
+
+
+
+    .chatbox-input {
+
+        display: flex;
+
+        padding: 10px;
+
+        border-top: 1px solid #ccc;
+
+    }
+
+
+
+    .chatbox-input input {
+
+        flex: 1;
+
+        padding: 10px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 5px;
+
+        font-size: 16px;
+
+    }
+
+
+
+    .chatbox-input button {
+
+        background-color: #39052e;
+
+        color: white;
+
+        border: none;
+
+        padding: 10px 15px;
+
+        border-radius: 5px;
+
+        cursor: pointer;
+
+        margin-left: 5px;
+
+        font-size: 16px;
+
+    }
+
+
+
+    .chatbox-input button:hover {
+
+        background-color: #36092d;
+
+    }
+
+
+
+    .user-message {
+
+        background-color: #ff0090;
+
+        color: white;
+
+        padding: 8px 10px;
+
+        border-radius: 10px;
+
+        margin: 5px 0;
+
+        align-self: flex-end;
+
+        max-width: 80%;
+
+    }
+
+
+
+    .bot-message {
+
+        background-color: #c63589;
+
+        color: white;
+
+        padding: 8px 10px;
+
+        border-radius: 10px;
+
+        margin: 5px 0;
+
+        max-width: 80%;
+
+    }
+
+</style>

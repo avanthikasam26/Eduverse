@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance - EduVerse</title>
+    <link rel="stylesheet" href="career.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">EduVerse</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="skills.html" class="protected">Skill Development</a></li>
+            <li><a href="career.html" class="protected">Career Guidance</a></li>
+            <li><a href="jobs.html" class="protected">Job Opportunities</a></li>
+            <li><a href="#" id="authLink">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Explore Your Career Path</h1>
+        <p>Find the best career opportunities based on your skills and interests.</p>
+        <a href="#career-options" class="btn">Discover Careers</a>
+    </section>
+
+    <!-- Career Section -->
+    <section class="career-container" id="career-options">
+        <h2>Career Options for Engineering Students</h2>
+        <div class="career-grid">
+            <div class="career-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.44.32 AM.jpeg" alt="Software Engineer" width="100" height="100">
+                <h3><a href="https://www.geeksforgeeks.org/software-engineers-career-path-salary-and-promotion/" target="_blank">Software Engineer</a></h3>
+                <p>Develop cutting-edge applications and software solutions.</p>
+            </div>
+            <div class="career-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.46.43 AM.jpeg" alt="Data Scientist" width="100" height="100">
+                <h3><a href="https://www.coursera.org/articles/what-is-a-data-scientist" target="_blank">Data Scientist</a></h3>
+                <p>Analyze complex data to make informed decisions.</p>
+            </div>
+            <div class="career-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.45.34 AM (1).jpeg" alt="AI Engineer" width="100" height="100">
+                <h3><a href="https://www.coursera.org/resources/job-leveling-matrix-for-artificial-intelligence-career-pathways" target="_blank">AI Engineer</a></h3>
+                <p>Build intelligent algorithms for real-world applications.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Login Protection -->
+    <script>
+        function checkLogin() {
+            let isLoggedIn = localStorage.getItem("loggedIn");
+            let authLink = document.getElementById("authLink");
+
+            if (isLoggedIn === "true") {
+                authLink.innerText = "Logout";
+                authLink.href = "#"; 
+                authLink.onclick = logout;
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "auto";
+                    link.style.opacity = "1"; // Make links active
+                });
+            } else {
+                authLink.innerText = "Login";
+                authLink.href = "login.html";
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "none";
+                    link.style.opacity = "0.5"; // Make links look disabled
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            alert("Logged out successfully!");
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLogin);
+    </script>
+
+</body>
+</html>

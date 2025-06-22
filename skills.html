@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Development - EduVerse</title>
+    <link rel="stylesheet" href="skills.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">EduVerse</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="skills.html" class="protected">Skill Development</a></li>
+            <li><a href="career.html" class="protected">Career Guidance</a></li>
+            <li><a href="jobs.html" class="protected">Job Opportunities</a></li>
+            <li><a href="#" id="authLink">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Enhance Your Skills</h1>
+        <p>Learn industry-relevant skills to boost your career.</p>
+        <a href="#skills-section" class="btn">Explore Skills</a>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-container" id="skills-section">
+        <h2>Top Skills to Learn</h2>
+        <div class="skill-grid">
+            <div class="skill-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.30.11 AM.jpeg" alt="Programming" width="250" height="175">
+                <h3><a href="programming.html">Programming</a></h3>
+                <p>Master languages like Python, Java, and C++.</p>
+            </div>
+            <div class="skill-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.28.37 AM.jpeg" alt="Web Development" width="250" height="175">
+                <h3><a href="webdevelopment.html">Web Development</a></h3>
+                <p>Build stunning websites with HTML, CSS, and JavaScript.</p>
+            </div>
+            <div class="skill-card">
+                <img src="C:\Users\navan\Downloads\WhatsApp Image 2025-03-29 at 11.31.29 AM.jpeg" alt="Data Science" width="250" height="175">
+                <h3><a href="datascience.html">Data Science</a></h3>
+                <p>Analyze data and gain insights with AI and ML.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Login Protection -->
+    <script>
+        function checkLogin() {
+            let isLoggedIn = localStorage.getItem("loggedIn");
+            let authLink = document.getElementById("authLink");
+
+            if (isLoggedIn === "true") {
+                authLink.innerText = "Logout";
+                authLink.href = "#"; 
+                authLink.onclick = logout;
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "auto";
+                    link.style.opacity = "1"; // Make links active
+                });
+            } else {
+                authLink.innerText = "Login";
+                authLink.href = "login.html";
+
+                document.querySelectorAll(".protected").forEach(link => {
+                    link.style.pointerEvents = "none";
+                    link.style.opacity = "0.5"; // Make links look disabled
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            alert("Logged out successfully!");
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLogin);
+    </script>
+
+</body>
+</html>
