@@ -1,4 +1,4 @@
-EduVerse – Quality Education Web Platform
+## EduVerse – Quality Education Web Platform
 
 EduVerse is a front-end web project designed to promote **quality education**, **skill development**, and **career awareness** through a clean, engaging, and user-friendly interface. The platform focuses on delivering information in a visually appealing and accessible manner using modern UI/UX principles.
 
